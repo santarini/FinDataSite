@@ -10,7 +10,9 @@ https://github.com/santarini/stockDataBase
 
 ###### Update 2: Make the program dynamically schedule fetch based on market hours
 - [x] Find primary source of market hours
-- [x] https://www.nyse.com/markets/hours-calendars
+* NASDAQ: https://business.nasdaq.com/trade/US-Options/Holiday-Trading-Hours.html
+* NYSE: https://www.nyse.com/markets/hours-calendars
+* AMEX: ???? (Could assume they are the same)
 - [ ] Scrape page into useable file
 - [ ] Convert scraped data into usable python data type
 
