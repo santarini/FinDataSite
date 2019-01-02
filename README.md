@@ -12,7 +12,7 @@ https://github.com/santarini/stockDataBase
 
 - [ ] Find primary source of market hours
 
-###### Update 3: Make the program automatically 
+###### Update 3: Make the program automatically update tickers database
 
 - [ ] Find primary source of up-to-date for all American tickers
 - [ ] Find primary source of source for ticker modifications (ticker CRUD)
