@@ -13,7 +13,7 @@ https://github.com/santarini/stockDataBase
 * NASDAQ: https://business.nasdaq.com/trade/US-Options/Holiday-Trading-Hours.html
 * NYSE: https://www.nyse.com/markets/hours-calendars
 * AMEX: ???? (Could assume they are the same)
-- [ ] Scrape page into useable file
+- [ ] Scrape pages into useable files
 - [ ] Convert scraped data into usable python data type
 
 
