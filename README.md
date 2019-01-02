@@ -4,7 +4,7 @@
 
 ### Version 1
 
-###### Update 1: Make a program that fetches financial data and puts it into a database.
+###### Update 1: Make a program that fetches financial data and puts it into a database
 
 https://github.com/santarini/stockDataBase
 
