@@ -49,11 +49,23 @@ months = [['January', 31],
           ['December', 31]
           ]
 
+days = ["Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+            ]
+
 i = 0
 while i < 12:
     j = 1
     while j <= months[i][1]:
-        print(datetime.date(now.year, i+1, j))
+        fullDate = datetime.date(now.year, i+1, j)
+        weekdayInt = datetime.date(now.year, i+1, j).weekday()
+        if weekdayInt < 5:
+            print(str(fullDate) + " " + days[weekdayInt])
         j += 1
     i +=1
 
@@ -67,4 +79,5 @@ while i < 12:
 
 #https://www.wikiwand.com/en/Federal_holidays_in_the_United_States#/List_of_federal_holidays
 #See floating Days
+
 
