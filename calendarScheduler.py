@@ -11,7 +11,7 @@
 ##print(datetime.now(tz))
 ##print(common_timezones)
 
-
+#Core Trading Session: 9:30 a.m. TO 4:00 p.m. ET
 
 import datetime
 marketHolidays = []
@@ -98,6 +98,9 @@ monthsInYear = {'January': [31, 1],
                 }
 
 #holidays data
+
+earlyMarketClose = [datetime.date(now.year, 7, 3), datetime.date(now.year, 11, 23), datetime.date(now.year, 12, 24)]
+
 
 holidaysData = [["New Year's Day", "Fixed", datetime.date(now.year, 1, 1), "Closed"],
                 ["Martin Luther King, Jr. Day", "Variable", 'January', 'Monday', 3, "Closed"],
