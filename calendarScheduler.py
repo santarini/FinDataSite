@@ -1,6 +1,6 @@
-#Get market closed dates
+#Get market holiday dates
 #Get market hours of operations
-#For market hours of operations schedule executeion
+#For market hours of operations except holidays and weekends schedule execution every 5 minutes
 
 ##from datetime import datetime
 ##from pytz import timezone, common_timezones
