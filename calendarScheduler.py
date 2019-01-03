@@ -11,16 +11,50 @@
 ##print(datetime.now(tz))
 ##print(common_timezones)
 
+
+
+import datetime
 marketHolidays = []
 dayOccurences = []
 
-import datetime
-
-#get year
-
+#Get year
 now = datetime.datetime.now()
 
-MLKDay = datetime.date(now.year, 1, 1)
+##Easter
+def Easter(year):
+    year = 2019
+    a = year % 19
+    b = year >> 2
+    c = b // 25 + 1
+    d = (c * 3) >> 2
+    e = ((a * 19) - ((c * 8 + 5) // 25) + d + 15) % 30
+    e += (29578 - a - e * 32) >> 10
+    e -= ((year % 7) + b - d + e + 2) % 7
+    d = e >> 5
+    day = e - d * 31
+    month = d + 3
+    return(datetime.date(year, month, day))
+
+#Floating Holidays
+def floatingHoliday(holidayMonth, holidayWeekday, holidayWeekdayCount):
+    i = 1
+    for j in range(1,monthsInYear[holidayMonth][0]+1):
+        fullDate = datetime.date(now.year, monthsInYear[holidayMonth][1], j)
+        weekdayInt = datetime.date(now.year, monthsInYear[holidayMonth][1], j).weekday()
+        if weekdayInt == daysInWeek.index(holidayWeekday):
+            if i == holidayWeekdayCount:
+                marketHolidays.append(fullDate)
+            if -1 == holidayWeekdayCount:
+                dayOccurences.append(fullDate)
+            if -2 == holidayWeekdayCount:
+                marketHolidays.append(fullDate)
+                break
+            i+=1
+        if -1 == holidayWeekdayCount and j == monthsInYear[holidayMonth][0]:
+            marketHolidays.append(dayOccurences[len(dayOccurences)-1])
+            dayOccurences.clear()
+
+
 
 #check if leap year
 if not(int(now.year) % 4 == 0):
@@ -47,6 +81,8 @@ daysInWeek = ["Monday",
         "Sunday"
         ]
 
+monthList = ['January','February','March','April', 'May','June', 'July', 'August', 'September', 'October', 'November', 'December']
+
 monthsInYear = {'January': [31, 1],
                 'February': [febDays, 2],
                 'March': [31, 3],
@@ -61,6 +97,8 @@ monthsInYear = {'January': [31, 1],
                 'December': [31, 12]
                 }
 
+#holidays data
+
 holidaysData = [["New Year's Day", "Fixed", datetime.date(now.year, 1, 1), "Closed"],
                 ["Martin Luther King, Jr. Day", "Variable", 'January', 'Monday', 3, "Closed"],
                 ["President's Day", "Variable", 'February', 'Monday', 3, "Closed"],
@@ -72,24 +110,8 @@ holidaysData = [["New Year's Day", "Fixed", datetime.date(now.year, 1, 1), "Clos
                 ["Christmas", "Fixed", datetime.date(now.year, 12, 25), "Closed"]
                 ]
 
-def floatingHoliday(holidayMonth, holidayWeekday, holidayWeekdayCount):
-    i = 1
-    for j in range(1,monthsInYear[holidayMonth][0]+1):
-        fullDate = datetime.date(now.year, monthsInYear[holidayMonth][1], j)
-        weekdayInt = datetime.date(now.year, monthsInYear[holidayMonth][1], j).weekday()
-        if weekdayInt == daysInWeek.index(holidayWeekday):
-            if i == holidayWeekdayCount:
-                marketHolidays.append(fullDate)
-            if -1 == holidayWeekdayCount:
-                dayOccurences.append(fullDate)
-            if -2 == holidayWeekdayCount:
-                marketHolidays.append(fullDate)
-                break
-            i+=1
-        if -1 == holidayWeekdayCount and j == monthsInYear[holidayMonth][0]:
-            marketHolidays.append(dayOccurences[len(dayOccurences)-1])
-            dayOccurences.clear()
 
+# run dynamic holidays function
 
 for x in range(0,8):
     if holidaysData[x][1] == "Fixed":
@@ -104,21 +126,28 @@ for x in range(0,8):
     else:
         floatingHoliday(holidaysData[x][2],holidaysData[x][3],holidaysData[x][4])
 
-print(marketHolidays)
+# Add Good Friday (2 days before Easter
+marketHolidays.append(Easter(now.year)+ datetime.timedelta(days=-2))
+
+# Iterate the days in the year
+daysOpen = 0
+for i in range(0,12):
+    monthList[i]
+    for j in range(1,monthsInYear[monthList[i]][0]+1):
+        #Skip weekends
+        if 5 == datetime.date(now.year, i+1, j).weekday() or 6 == datetime.date(now.year, i+1, j).weekday():
+            continue
+        #Skip holidays
+        if datetime.date(now.year, i+1, j) in marketHolidays:
+            continue
+        else:
+            print(datetime.date(now.year, i+1, j))
+            daysOpen += 1
+    
+
+#print(marketHolidays)
 
 
-##Easter
-year = 2019
-a = year % 19
-b = year >> 2
-c = b // 25 + 1
-d = (c * 3) >> 2
-e = ((a * 19) - ((c * 8 + 5) // 25) + d + 15) % 30
-e += (29578 - a - e * 32) >> 10
-e -= ((year % 7) + b - d + e + 2) % 7
-d = e >> 5
-day = e - d * 31
-month = d + 3
-print(str(year) + "-" + str(month) + "-" + str(day))
+
 
 
