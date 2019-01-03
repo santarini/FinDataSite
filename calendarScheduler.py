@@ -12,6 +12,7 @@
 ##print(common_timezones)
 
 marketHolidays = []
+dayOccurences = []
 
 import datetime
 
@@ -35,7 +36,7 @@ else:
     print(str(now.year) + " Common Year")
     febDays = 28
 
-######
+##### Determine holidays
 
 daysInWeek = ["Monday",
         "Tuesday",
@@ -60,78 +61,48 @@ monthsInYear = {'January': [31, 1],
                 'December': [31, 12]
                 }
 
-##holidaysVariables = [["New Year's Day", NewYears],
-##                     ["Martin Luther King, Jr. Day", MLKDay]
-##                     ]
-
 holidaysData = [["New Year's Day", "Fixed", datetime.date(now.year, 1, 1), "Closed"],
                 ["Martin Luther King, Jr. Day", "Variable", 'January', 'Monday', 3, "Closed"],
                 ["President's Day", "Variable", 'February', 'Monday', 3, "Closed"],
+                #["Good Friday", "Variable", '', '', 0, "Closed"],
+                ["Memorial Day", "Variable", 'May', 'Monday', -1, "Closed"],
+                ["Independence  Day", "Fixed", datetime.date(now.year, 7, 4), "Closed"],
+                ["Labor  Day", "Variable", 'September', 'Monday', -2, "Closed"],
+                ["Thanksgiving", "Variable", 'November', 'Thursday', 4, "Closed"],
+                ["Christmas", "Fixed", datetime.date(now.year, 12, 25), "Closed"]
                 ]
 
 def floatingHoliday(holidayMonth, holidayWeekday, holidayWeekdayCount):
     i = 1
-    for j in range(1,monthsInYear[holidayMonth][0]):
+    for j in range(1,monthsInYear[holidayMonth][0]+1):
         fullDate = datetime.date(now.year, monthsInYear[holidayMonth][1], j)
         weekdayInt = datetime.date(now.year, monthsInYear[holidayMonth][1], j).weekday()
-        if weekdayInt == 0:
+        if weekdayInt == daysInWeek.index(holidayWeekday):
             if i == holidayWeekdayCount:
                 marketHolidays.append(fullDate)
+            if -1 == holidayWeekdayCount:
+                dayOccurences.append(fullDate)
+            if -2 == holidayWeekdayCount:
+                marketHolidays.append(fullDate)
+                break
             i+=1
+        if -1 == holidayWeekdayCount and j == monthsInYear[holidayMonth][0]:
+            marketHolidays.append(dayOccurences[len(dayOccurences)-1])
+            dayOccurences.clear()
 
 
-for x in range(0,3):
+for x in range(0,8):
     if holidaysData[x][1] == "Fixed":
-        marketHolidays.append(holidaysData[x][2])
+        #If the holiday falls on a Saturday, the market will close on the preceding Friday.
+        if holidaysData[x][2].weekday() == 5:
+            marketHolidays.append((holidaysData[x][2]) + datetime.timedelta(days=-1))
+        #If the holiday falls on a Sunday, the market will close on the subsequent Monday.
+        if holidaysData[x][2].weekday() == 6:
+            marketHolidays.append((holidaysData[x][2]) + datetime.timedelta(days=1))
+        else:
+            marketHolidays.append(holidaysData[x][2])
     else:
         floatingHoliday(holidaysData[x][2],holidaysData[x][3],holidaysData[x][4])
 
 print(marketHolidays)
-
-
-
-##15 January 2018 
-##Martin Luther King, Jr. Day 
-##Closed 
-##19 February 2018 
-##President's Day 
-##Closed 
-##30 March 2018 
-##Good Friday 
-##Closed
-##28 May 2018 
-##Memorial Day 
-##Closed 
-##3 July, 2018 
-##Early Market Close 
-##1:00 PM EST 
-##4 July 2018 
-##Independence Day (Observed) 
-##Closed 
-##3 September 2018 
-##Labor Day 
-##Closed 
-##22 November 2018 
-##Thanksgiving Day	Closed 
-##23 November 2018 
-##Early Market Close 
-##1:00 p.m. EST
-##24 December 2018 
-##Christmas Eve -- Early Market Close 
-##1:00 p.m. EST
-##25 December 2018 
-##Christmas Day (Observed) 
-##Closed
-
-
-##datetime_object = datetime.date(now.year, 12, 21)
-##print(datetime_object)
-##
-##holidays = []
-##
-##months = ['January','February','March','April', 'May','June', 'July', 'August', 'September', 'October', 'November', 'December']
-
-#https://www.wikiwand.com/en/Federal_holidays_in_the_United_States#/List_of_federal_holidays
-#See floating Days
-
 
