@@ -19,5 +19,10 @@ https://github.com/santarini/stockDataBase
 
 ###### Update 3: Make the program automatically update tickers database
 
-- [ ] Find primary source of up-to-date for all American tickers
+- [x] Find primary source of up-to-date for all American tickers
+http://otce.finra.org/DLSymbolNameChanges
+https://www.nasdaq.com/markets/stocks/symbol-change-history.aspx
 - [ ] Find primary source of source for ticker modifications (ticker CRUD)
+
+### Tic
+
