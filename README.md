@@ -31,3 +31,5 @@ https://www.nasdaq.com/markets/stocks/symbol-change-history.aspx
 ###### Update 6: Build the HTML Dashboard Homepage
 
 ###### Update 7: Configure the scripts that push data to to the homepage tables
+
+https://github.com/santarini/finCharts
