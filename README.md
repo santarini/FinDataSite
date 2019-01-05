@@ -24,5 +24,10 @@ http://otce.finra.org/DLSymbolNameChanges
 https://www.nasdaq.com/markets/stocks/symbol-change-history.aspx
 - [ ] Find primary source of source for ticker modifications (ticker CRUD)
 
-### Tic
+###### Update 4: Run the database and start accumulating data
 
+###### Update 5: Get last 10 years daily data for tickers from secondary source
+
+###### Update 6: Build the HTML Dashboard Homepage
+
+###### Update 7: Configure the scripts that push data to to the homepage tables
